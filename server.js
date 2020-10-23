@@ -1,7 +1,7 @@
 const express=require('express')
 const app=express()
 const port=process.env.PORT || 8000
-const main=require('./index')
+const main=require('./function_cli')
 const auth=require('./helper/Auth')
 const timer=require('./helper/timer')
 var morgan = require('morgan')

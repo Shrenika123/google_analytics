@@ -1,4 +1,4 @@
-const main=require('../index')
+const main=require('../function_cli')
 
 
 const timer=async(req,res,next)=>{
