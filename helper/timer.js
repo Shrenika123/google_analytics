@@ -1,5 +1,4 @@
-const main=require('../function_cli')
-
+const main1=require('../services/functinality')
 
 const timer=async(req,res,next)=>{
 try{
@@ -11,16 +10,16 @@ try{
     if(req.path==="/reports/pages/")
     {
         if(orderBy==='views')
-            res1=await main.getMostPageView(value)
+            res1=await main1.getMostPageView(value)
         else
         {
-            res1=await main.getMostTimeSpentPages(value)
+            res1=await main1.getMostTimeSpentPages(value)
         }
 }
 
     else if(req.path==="/reports/users/")
-    {
-        res1=await main.getTopActiveUsers(value)
+    {   
+        res1=await main1.getTopActiveUsers(value)
     }
     req.value=res1
     var duration = Date.now() - start;
