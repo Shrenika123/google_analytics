@@ -1,9 +1,10 @@
-   
 let tsv = require("node-tsv-json");
 
+/**
+*converts an tsv file to array of JSON Objects taking tsv file as input
+*@return {Object} array of JSON Objects
+*/
 function convert_to_object(){
-// let res=[]
-// let i=0
 return new Promise((resolve)=>{
   
     tsv({
@@ -15,10 +16,15 @@ return new Promise((resolve)=>{
         }else {
             resolve(result)
         }
-      })
+   })
 })
 }
 
+/**
+*Sorts the array of objects based on the type passed
+*@param {String} type field on which the event Array should be sorted
+*@return {Object} array of sorted JSON Objects
+*/
 async function sortValue(type){
     let object=await convert_to_object()
     // console.log(r)
@@ -29,25 +35,25 @@ async function sortValue(type){
        else
        return -1
     })
-}
+  }
     else
     {
         object.sort((a,b)=>{
             return new Date(b.tstamp) - new Date(a.tstamp);
-
          })
     }
    return object
 }
 
-
-
-
-
+/**
+*Function that checks the pattern of uri to get unique pages
+*@param {Array} event sorted Array of objects(Events) based on event_value
+*@param {Number} val count required by the user
+*@return {Object} array events with high page viewv equal to users count
+*/
 function uri_pattern_matching(event,val){
-    let count=0
-    // let set=new Set()
-    let resArray=[]
+let count=0
+let resArray=[]
    
 let set=new Set;
 for(let i=0;i<event.length;i++){
@@ -70,13 +76,17 @@ for(let i=0;i<event.length;i++){
   if(count===parseInt(val))
   return resArray
 }
-  
 return resArray
 }
 
 
+/**
+*Getting count of the page views
+*@param {Array} event sorted Array of objects(Events) based on event_value
+*@param {Number} val count required by the user
+*@return {Map} returns the page count equal to users input for pages viewed most
+*/
 function count_uri_matching(event,val){
-    // let count=0
     let count=0
     let map=new Map()
     let objRes=[]
@@ -117,11 +127,15 @@ function count_uri_matching(event,val){
             count++
           }
         return objRes
-    
 }
 
 
-
+/**
+*Getting most active users
+*@param {Array} event sorted Array of objects(Events) based on timetamp
+*@param {Number} val count required by the user
+*@return {Array} array containing most active user equal to users count
+*/
 function mapCreate(event,val) {
 let arr=[]
 let count=0
@@ -138,13 +152,8 @@ for(let i=0;i<event.length;i++)
         set.add(event[i]['uuid'])
         arr.push(event[i]['uuid'])
     }
-   
 }
-
 return arr
-
 }
-
-
 
 module.exports={sortValue,uri_pattern_matching,count_uri_matching,mapCreate,convert_to_object}

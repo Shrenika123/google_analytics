@@ -12,6 +12,9 @@ var conString = "postgres://admin1:admin1@localhost:5432/test_db";
 
 app.use(morgan('dev'))
 
+/**
+*Add logs to File
+*/
 var logger = winston.createLogger({
   transports: [
       new winston.transports.File({
@@ -38,13 +41,24 @@ logger.stream = {
       logger.info(message);
   }
 };
+app.use(require("morgan")("combined", { "stream": logger.stream }));
 
 
+/**
+*Helps to connect to DB
+*/
 function connectToDB(){
 var client = new pg.Client(conString);
 return client
 }
 
+/**
+ * @api {post} / connecting and posting events to DB
+ * @apiGroup reports
+ * @apiParam {String,Number} category,count
+ *
+ * @apiSuccess {JSON Object} events,pages.
+ */
 app.post('/',async ()=>{
    let client=await connectToDB()
    let resVal=await jsonObject.convert_to_object()
@@ -68,6 +82,14 @@ app.post('/',async ()=>{
 })
 
 
+/**
+ * @api {get} /reports/pages/ most page viewed
+ * @apiName getMostTimeSpentPages and getMostPageViewed
+ * @apiGroup reports
+ * @apiParam {String,Number} category,count 
+ *
+ * @apiSuccess {JSON Object} events,pages.
+ */
 app.get('/reports/pages/',auth,timer,async(req,res)=>{
   try{
     res.setHeader('X-TIME-TO-EXECUTE', req.duration+' ms');
@@ -83,10 +105,22 @@ catch(e){
 
 })
 
-
+/**
+ * @api {get} /reports/users/ most active users
+ * @apiName getTopActiveUsers
+ * @apiGroup reports
+ * @apiParam {Number} id Users unique ID.
+ *
+ * @apiSuccess {JSON Object} of uuid's.
+ */
 app.get('/reports/users/',auth,timer,async(req,res)=>{
     try{
       res.setHeader('X-TIME-TO-EXECUTE', req.duration+' ms');
+      let countfromUser=req.query.count
+      if(isNaN(parseInt(countfromUser)) || parseInt(countfromUser)<0)  
+        throw new Error('Invalid query parameter')
+      
+      else
       res.status(200).send(req.value)
   }
   catch(e){

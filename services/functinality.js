@@ -1,5 +1,8 @@
 const main=require('../controllers/helperFunctions')
 
+/**
+*Function for getting pages where most time was spent
+*/
 async function getMostTimeSpentPages(value) {
   let countAsRequested=value
   let sortedArray= await main.sortValue('event_value')
@@ -7,8 +10,9 @@ async function getMostTimeSpentPages(value) {
   return events
 }
 
-
-
+/**
+*Function for getting most viewed pages
+*/
 async function getMostPageView(value){
     let countAsRequested=value
     let sortedArray= await main.sortValue('event_value')
@@ -16,13 +20,14 @@ async function getMostPageView(value){
     return resMap
 }
 
-
+/**
+*Function for getting most active users
+*/
 async function getTopActiveUsers(value){
     let countAsRequested=value
     let sortedArray= await main.sortValue('tstamp')
     let resArrayUuid=await main.mapCreate(sortedArray,countAsRequested)
     return resArrayUuid
 }
-// getMostTimeSpentPages()
 
 module.exports={getMostTimeSpentPages,getTopActiveUsers,getMostPageView}

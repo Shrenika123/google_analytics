@@ -1,3 +1,8 @@
+/**
+*Middleware for Authentication for web ApI using X-Auth-Token
+*On Auth failure will return "please Authenticate"
+*/
+
 const auth=async(req,res,next)=>{
     try{
          let token=await req.header('X-Auth-Token')

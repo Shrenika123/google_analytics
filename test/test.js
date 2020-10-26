@@ -4,11 +4,13 @@ const expect = chai.expect;
 let mockArray=[{event_value: '528',uuid: '0215bef6f0d6414b8fad23b6fbf7b225',location: '/'},{event_value: '527',uuid: '0215bef6f0d6414b8fad23b6fbf7b225',location: '/?'}]
 let chaiHttp = require('chai-http');
 let should = chai.should();
-// let server = require('../server');
 
 chai.use(chaiHttp);
 const assert = require('assert');
 
+/**
+*Testing functinality for getMostTimeSpentPages function and Api
+*/
 describe('all functinality of getMostTimeSpentPages', function() {
   
   describe('uri_pattern_matching', function() {
@@ -62,8 +64,5 @@ describe('all functinality of getMostTimeSpentPages', function() {
             });
       });
   });
-  
-
-
 });
   

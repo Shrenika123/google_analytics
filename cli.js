@@ -3,10 +3,14 @@ const user_input_count = process.argv[3]
 const main1=require('./services/functinality')
 require('yargs');
 
+//operations count value entered in the cli
 if (operations !== null) {
     main2()
 }
 
+/**
+*cli function for getting pages where most time was spent
+*/
 async function getMostTimeSpentPagesCli(){
     let start = new Date().getTime();
     let r=await main1.getMostTimeSpentPages(user_input_count)
@@ -16,6 +20,9 @@ async function getMostTimeSpentPagesCli(){
     console.log(('Execution time: ' + time+' ms'))
 }
 
+/**
+*cli function  for getting most viewed pages
+*/
 async function getTopActiveUsersCli(){
     let start = new Date().getTime();
     let r=await main1.getTopActiveUsers(user_input_count)
@@ -24,6 +31,10 @@ async function getTopActiveUsersCli(){
     let time = end - start;
     console.log(('Execution time: ' + time+' ms'))
 }
+
+/**
+*cli function  for getting most active users
+*/
 async function getMostPageViewCli(){
     let start = new Date().getTime();
     let r=await main1.getMostPageView(user_input_count)
@@ -34,17 +45,13 @@ async function getMostPageViewCli(){
 }
 
 async function main2() {
-
-
     switch (operations) {
         case 'getMostTimeSpentPages': getMostTimeSpentPagesCli()
-                break;
+            break;
         case 'getTopActiveUsers': getTopActiveUsersCli()
             break;
         case 'getMostPageView': getMostPageViewCli()
             break;
-        // case 'getLastQauter': getLastQauterCli()
-        //     break;
-    }
+}
 
 }

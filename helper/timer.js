@@ -1,3 +1,7 @@
+/**
+*Middleware for calculating total time taken by ap t to execute and add header X-TIME-To-EXECUTE heaser to response
+*/
+
 const main1=require('../services/functinality')
 
 const timer=async(req,res,next)=>{
@@ -31,10 +35,6 @@ catch(e){
     }
 
 }
-
-
-
-
 
 module.exports=timer
 
