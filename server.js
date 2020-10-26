@@ -4,7 +4,43 @@ const port=process.env.PORT || 8000
 const auth=require('./helper/Auth')
 const timer=require('./helper/timer')
 var morgan = require('morgan')
+var winston = require('winston');
+
 app.use(morgan('dev'))
+
+
+
+var logger = winston.createLogger({
+  transports: [
+      new winston.transports.File({
+          level: 'info',
+          filename: './logs/all-logs.log',
+          handleExceptions: true,
+          json: true,
+          maxsize: 5242880,
+          maxFiles: 5,
+          colorize: false
+      }),
+      new winston.transports.Console({
+          level: 'debug',
+          handleExceptions: true,
+          json: false,
+          colorize: true
+      })
+  ],
+  exitOnError: false
+});
+
+logger.stream = {
+  write: function(message, encoding){
+      logger.info(message);
+  }
+};
+
+app.use(require("morgan")("combined", { "stream": logger.stream }));
+
+
+
 
 app.get('/reports/pages/',auth,timer,async(req,res)=>{
   try{
