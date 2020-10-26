@@ -1,14 +1,5 @@
 version: '2'
 services:
-  postgres:
-    image: postgres
-    environment:
-      POSTGRES_PASSWORD: admin
-      POSTGRES_USER: admin
-      POSTGRES_DB: test_db
-    ports:
-      - '8600:8000'
-      
   app:
     build: .
     image: google_analytics
@@ -18,3 +9,14 @@ services:
       - '8800:8000'
     depends_on:
       - postgres
+    environment:
+      DATABASE_URL: postgres://admin:admin@postgres:5432/test_db
+      
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: admin
+      POSTGRES_DB: test_db
+    ports:
+      - '8600:8000'
