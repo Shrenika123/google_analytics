@@ -1,4 +1,4 @@
-const main=require('../controllers/helperFunctions')
+const main=require('./helperFunctions')
 
 /**
 *Function for getting pages where most time was spent
