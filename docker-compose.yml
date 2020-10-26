@@ -10,13 +10,13 @@ services:
     depends_on:
       - postgres
     environment:
-      DATABASE_URL: postgres://admin:admin@postgres:5432/test_db
+      DATABASE_URL: postgres://admin1:admin1@postgres:5432/test_db
       
   postgres:
     image: postgres
     environment:
-      POSTGRES_PASSWORD: admin
-      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin1
+      POSTGRES_USER: admin1
       POSTGRES_DB: test_db
     ports:
-      - '8600:8000'
+      - '5432:5432'
